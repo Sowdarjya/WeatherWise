@@ -36,8 +36,8 @@ const Weather = () => {
               id={id}
               className="flex items-center justify-around p-3 m-6"
             >
-              <Icon className="mr-1 text-2xl" />{" "}
-              <span className="text-xl"> {value} </span>
+              <Icon className=" text-2xl" />
+              <span className="text-xl ml-1"> {value} </span>
             </div>
           ))}
         </div>
