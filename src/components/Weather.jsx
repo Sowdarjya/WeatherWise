@@ -6,7 +6,6 @@ import {
   WiDaySunny,
   WiThunderstorm,
 } from "react-icons/wi";
-import { CiSun } from "react-icons/ci";
 import { FaThermometerEmpty, FaWind, FaSearch } from "react-icons/fa";
 import { WiHumidity } from "react-icons/wi";
 import useFetch from "../useFetch";
@@ -20,8 +19,7 @@ const Weather = () => {
   );
 
   const weatherIconMap = {
-    Clear: CiSun,
-    Sunny: WiDaySunny,
+    Clear: WiDaySunny,
     Clouds: WiCloudy,
     Rain: WiRain,
     Snow: WiSnow,
@@ -53,6 +51,10 @@ const Weather = () => {
     setQuery(search);
   };
 
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="p-6 h-auto w-2/5">
       <div className="flex flex-col items-center justify-center bg-gradient-to-tr from-[#696eff] to-[#f8acff] rounded-lg h-full py-3 px-1">
@@ -77,18 +79,29 @@ const Weather = () => {
         </span>
         <WeatherIcon className=" text-9xl" />
         <h1 className="text-6xl font-semibold">
-          {data ? `${Math.floor(data.main.temp)}°C` : "Loading..."}
+          {Math.floor(data.main.temp)}°C
         </h1>
         <h3 className="text-4xl mt-2">
-          {data ? data.name : "Loading..."},{data.sys.country}
+          {data.name}, {data.sys.country}
         </h3>
-        <div className="flex">
+        <div className="flex justify-between items-center">
           {otherInfo.map(({ id, Icon, value }) => (
-            <div key={id} className="flex items-center justify-around p-3 m-6">
+            <div key={id} className="flex items-center p-6 w-1/2">
               <Icon className="text-2xl" />
               <span className="text-xl ml-1"> {value} </span>
             </div>
           ))}
+        </div>
+
+        <div className="flex items-center justify-around w-3/4">
+          <p className="font-medium text-lg">
+            {" "}
+            Min: {`${Math.floor(data.main.temp_min)}`}°C{" "}
+          </p>
+          <p className="font-medium text-lg">
+            {" "}
+            Max: {`${Math.ceil(data.main.temp_max)}`}°C{" "}
+          </p>
         </div>
       </div>
     </div>
