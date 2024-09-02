@@ -15,7 +15,9 @@ const Weather = () => {
   const [query, setQuery] = useState("Mumbai");
 
   let data = useFetch(
-    `https://api.openweathermap.org/data/2.5/weather?q=${query}&appid=cfc392f4ac723d6721c432e106d8b0d9&units=metric`
+    `https://api.openweathermap.org/data/2.5/weather?q=${query}&appid=${
+      import.meta.env.VITE_APP_ID
+    }&units=metric`
   );
 
   const weatherIconMap = {
@@ -56,7 +58,7 @@ const Weather = () => {
   }
 
   return (
-    <div className="p-6 h-auto w-2/5">
+    <div className="p-6 h-[37rem] w-3/4">
       <div className="flex flex-col items-center justify-center bg-gradient-to-tr from-[#696eff] to-[#f8acff] rounded-lg h-full py-3 px-1">
         <div className="w-full flex items-center justify-center mb-3">
           <input
@@ -86,14 +88,14 @@ const Weather = () => {
         </h3>
         <div className="flex justify-between items-center">
           {otherInfo.map(({ id, Icon, value }) => (
-            <div key={id} className="flex items-center p-6 w-1/2">
+            <div key={id} className="flex items-center p-3 w-1/2">
               <Icon className="text-2xl" />
               <span className="text-xl ml-1"> {value} </span>
             </div>
           ))}
         </div>
 
-        <div className="flex items-center justify-around w-3/4">
+        <div className="flex items-center justify-around w-2/4">
           <p className="font-medium text-lg">
             {" "}
             Min: {`${Math.floor(data.main.temp_min)}`}°C{" "}
